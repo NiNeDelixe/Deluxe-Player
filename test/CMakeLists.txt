@@ -46,7 +46,6 @@ target_link_libraries(
   tests
   PRIVATE Deluxe_Player::Deluxe_Player_warnings
           Deluxe_Player::Deluxe_Player_options
-          Deluxe_Player::sample_library
           Catch2::Catch2WithMain)
 
 Deluxe_Player_configure_linker(tests)
@@ -80,7 +79,6 @@ target_link_libraries(
   constexpr_tests
   PRIVATE Deluxe_Player::Deluxe_Player_warnings
           Deluxe_Player::Deluxe_Player_options
-          Deluxe_Player::sample_library
           Catch2::Catch2WithMain)
 
 Deluxe_Player_configure_linker(constexpr_tests)
@@ -105,7 +103,6 @@ target_link_libraries(
   relaxed_constexpr_tests
   PRIVATE Deluxe_Player::Deluxe_Player_warnings
           Deluxe_Player::Deluxe_Player_options
-          Deluxe_Player::sample_library
           Catch2::Catch2WithMain)
 target_compile_definitions(relaxed_constexpr_tests PRIVATE -DCATCH_CONFIG_RUNTIME_STATIC_REQUIRE)
 

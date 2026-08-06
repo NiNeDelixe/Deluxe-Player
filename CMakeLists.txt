@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.29)
 
 # Disable modules support, this is broken with clang-tidy at the moment
-cmake_policy(SET CMP0155 OLD) 
+#cmake_policy(SET CMP0155 OLD) 
 
 # This template attempts to be "fetch_content"-able
 # so that it works well with tools like CPM or other
@@ -9,7 +9,7 @@ cmake_policy(SET CMP0155 OLD)
 
 # Only set the cxx_standard if it is not set by someone else
 if (NOT DEFINED CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 23)
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 # strongly encouraged to enable this globally to avoid conflicts between
@@ -41,6 +41,11 @@ endif()
 Deluxe_Player_global_options()
 include(Dependencies.cmake)
 Deluxe_Player_setup_dependencies()
+
+if(WIN32 AND TARGET Qt6::Core)
+  set(__qt_internal_cmake_windows_support_files_path
+      "${QtBase_BINARY_DIR}/lib/cmake/Qt6/windows")
+endif()
 
 Deluxe_Player_local_options()
 
@@ -107,7 +112,7 @@ if(MSVC)
 endif()
 
 # set the startup project for the "play" button in MSVC
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT intro)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT player)
 
 if(CMAKE_SKIP_INSTALL_RULES)
   return()
@@ -119,7 +124,7 @@ include(cmake/PackageProject.cmake)
 # we know we want to ship
 Deluxe_Player_package_project(
   TARGETS
-  intro
+  player
   Deluxe_Player_options
   Deluxe_Player_warnings
   # FIXME: this does not work! CK
