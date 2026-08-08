@@ -1,0 +1,11 @@
+--- a/rest_request.h
++++ b/rest_request.h
+@@ -37,7 +37,7 @@
+ */
+ 
+ #pragma once
+-#include "JuceHeader.h"
++#include <juce_core/juce_core.h>
+ 
+ namespace adamski {
+ using namespace juce;

@@ -1,0 +1,10 @@
+--- a/rest_request.cpp
++++ b/rest_request.cpp
+@@ -25,7 +25,6 @@
+ */
+ 
+ 
+-#include "AppConfig.h"
+ #include "rest_request.h"
+ 
+ 

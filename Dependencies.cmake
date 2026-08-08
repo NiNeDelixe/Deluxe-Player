@@ -80,14 +80,14 @@ function(Deluxe_Player_setup_dependencies)
   #     "main")
   # endif()
 
-  if(NOT TARGET ffmpeg)
+  if(NOT TARGET miniaudio)
     cpmaddpackage(
       NAME
-      ffmpeg
+      miniaudio
       GITHUB_REPOSITORY
-      "ffmpeg/ffmpeg"
+      "mackron/miniaudio"
       GIT_TAG
-      n9.0
+      0.11.25
       SYSTEM 
       YES)
   endif()
@@ -140,6 +140,34 @@ function(Deluxe_Player_setup_dependencies)
         "JUCE_USE_WINDOWS_MIDI_SERVICES ON"
       SYSTEM 
       YES)
+  endif()
+
+  if(NOT TARGET rest_request)
+    if(EXISTS ${CMAKE_BINARY_DIR}/rest_request)
+      CPMAddPackage(
+        NAME RestRequest
+        GITHUB_REPOSITORY adamski/RestRequest
+        GIT_TAG master
+        DOWNLOAD_ONLY YES
+        SYSTEM YES
+        #PATCHES "patches/rest_request_h.patch" "patches/rest_request_cpp.patch" "patches/Source/RestRequest_h.patch"
+        SOURCE_DIR "rest_request"
+      )
+    else()
+      CPMAddPackage(
+        NAME RestRequest
+        GITHUB_REPOSITORY adamski/RestRequest
+        GIT_TAG master
+        DOWNLOAD_ONLY YES
+        SYSTEM YES
+        PATCHES "patches/rest_request_h.patch" "patches/rest_request_cpp.patch" "patches/Source/RestRequest_h.patch"
+        SOURCE_DIR "rest_request"
+      )
+    endif()
+
+    juce_add_module(
+      ${RestRequest_SOURCE_DIR}
+    )
   endif()
 
   # if(NOT TARGET Qt6::Quick)
