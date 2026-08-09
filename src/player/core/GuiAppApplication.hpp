@@ -62,6 +62,8 @@ public:
         This class implements the desktop window that contains an instance of
         our MainComponent class.
     */
+
+    const std::unique_ptr<PlayerWindow>& getMainWindow() const { return mainWindow; }
     
 
 private:

@@ -1,33 +1,9 @@
 #include "TrackList.hpp"
 
+#include "core/GuiAppApplication.hpp"
+
 TrackList::TrackList()
-{
-    auto local_tracks = provider.getTracks(
-        "C:\\Users\\nanler\\Music"
-    );
-
-    size_t i = 0;
-    for (const auto& track : local_tracks)
-    {
-        auto* track_component = tracks.add(new TrackComponent(
-            static_cast<int>(i + 1),
-            track->getName(),
-            track->getName(),
-            track->getName(),
-            track->getName()));
-
-        const int index = static_cast<int>(i);
-
-        track_component->onClicked = [this, index]
-        {
-            selectTrack(index);
-        };
-
-        addAndMakeVisible(track_component);
-
-        ++i;
-    }
-
+{  
 
     // const std::array data
     // {
@@ -77,15 +53,58 @@ void TrackList::resized()
     const int top = 75;
     const int height = 58;
 
-    for (int i = 0; i < tracks.size(); ++i)
-        tracks[i]->setBounds(20, top + i * height,
+    for (int i = 0; i < track_components.size(); ++i)
+        track_components[i]->setBounds(20, top + i * height,
                              getWidth() - 40, height - 4);
+}
+
+void TrackList::changeTrack(std::shared_ptr<Track> track) 
+{
+    auto iter = std::find(tracks.begin(), tracks.end(), track);
+    selectTrack(std::distance(tracks.begin(), iter));
+}
+
+void TrackList::setTracks(std::vector<std::shared_ptr<Track>> tracks) 
+{
+    this->tracks = tracks;
+
+    recreateList();
+}
+
+void TrackList::recreateList() 
+{
+    size_t i = 0;
+    for (const auto& track : tracks)
+    {
+        auto* track_component = track_components.add(new TrackComponent(
+            static_cast<int>(i + 1),
+            track->getName(),
+            track->getName(),
+            track->getName(),
+            track->getName()));
+
+        const int index = static_cast<int>(i);
+
+        track_component->onClicked = [this, index, track]
+        {
+            selectTrack(index);
+            onTrackClicked(index);
+            //track->play();
+        };
+
+        addAndMakeVisible(track_component);
+
+        ++i;
+    }
+
+    repaint();
+    resized();
 }
 
 void TrackList::selectTrack(int index)
 {
     selectedTrack = index;
 
-    for (int i = 0; i < tracks.size(); ++i)
-        tracks[i]->setSelected(i == selectedTrack);
+    for (int i = 0; i < track_components.size(); ++i)
+        track_components[i]->setSelected(i == selectedTrack);
 }

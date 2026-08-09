@@ -25,6 +25,21 @@ MainComponent::MainComponent()
         resized();
     };
 
+    playerBar.onTrackChangedFromList = [=]()
+    {
+        trackList.changeTrack(playerBar.getCurrentTrack());
+    };
+
+    playerBar.onTracksAdded = [=]()
+    {
+        trackList.setTracks(playerBar.getTracks());
+    };
+
+    trackList.onTrackClicked = [=](size_t index)
+    {
+        playerBar.playTrack(index);
+    };
+
     addChildComponent(integrationComponent);
 
     navigationPanel.onIntegrationsClicked = [this]

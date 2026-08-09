@@ -43,6 +43,12 @@ PlayerBar::PlayerBar()
             --currentTrack;
 
         playTrack(currentTrack);
+
+        if (onTrackChangedFromList)
+        {
+            onTrackChangedFromList();
+        }
+        
     };
 
     nextButton.onClick = [this]
@@ -52,6 +58,11 @@ PlayerBar::PlayerBar()
 
         currentTrack = (currentTrack + 1) % tracks.size();
         playTrack(currentTrack);
+        
+        if (onTrackChangedFromList)
+        {
+            onTrackChangedFromList();
+        }
     };
 }
 
@@ -108,6 +119,11 @@ void PlayerBar::updatePlayButton()
 
     playButton.setButtonText(
         tracks[currentTrack]->isPlaying() ? "||" : ">");
+}
+
+std::shared_ptr<Track> PlayerBar::getCurrentTrack() 
+{ 
+    return tracks[currentTrack];
 }
 
 void PlayerBar::setExpanded(bool expanded)

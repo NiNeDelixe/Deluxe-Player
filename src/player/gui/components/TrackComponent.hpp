@@ -38,7 +38,7 @@ private:
     bool selected = false;
     bool hovered = false;
 
-    //Track track_impl;
+    std::weak_ptr<Track> track;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TrackComponent)
 };

@@ -17,14 +17,21 @@ public:
     void paint(juce::Graphics&) override;
     void resized() override;
 
+    void changeTrack(std::shared_ptr<Track> track);
+    void setTracks(std::vector<std::shared_ptr<Track>> tracks);
+
+    void recreateList();
+
+public:
+    std::function<void(size_t)> onTrackClicked;
+
 private:
-    juce::OwnedArray<TrackComponent> tracks;
+    juce::OwnedArray<TrackComponent> track_components;
+    std::vector<std::shared_ptr<Track>> tracks;
 
     int selectedTrack = -1;
 
     void selectTrack(int index);
-
-    LocalTrackProvider provider = LocalTrackProvider();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TrackList)
 };

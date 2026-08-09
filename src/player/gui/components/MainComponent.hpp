@@ -24,6 +24,8 @@ public:
     void paint(juce::Graphics&) override;
     void resized() override;
 
+    const PlayerBar& getPlayerBar() const { return playerBar; }
+
 private:
     //==============================================================================
     // Your private member variables go here...

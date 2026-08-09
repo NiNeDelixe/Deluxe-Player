@@ -23,10 +23,18 @@ public:
 
     template<class PROVIDER>
     void setTracks(const std::filesystem::path& directory);
+    
+    const std::vector<std::shared_ptr<Track>>& getTracks() const { return tracks; }
+
+    std::shared_ptr<Track> getCurrentTrack();
+
     void playTrack(size_t index);
 
 public:
     std::function<void(bool)> onExpandedChanged;
+
+    std::function<void(void)> onTrackChangedFromList;
+    std::function<void(void)> onTracksAdded;
 
 private:
     void updateTrackInfo();
@@ -65,5 +73,12 @@ inline void PlayerBar::setTracks(const std::filesystem::path& directory)
     currentTrack = 0;
 
     if (!tracks.empty())
+    {
         updateTrackInfo();
+
+        if (onTracksAdded)
+        {
+            onTracksAdded();
+        }
+    }
 }
