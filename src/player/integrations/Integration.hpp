@@ -12,6 +12,9 @@ public:
     virtual juce::String getDescription() const = 0;
 
     virtual std::unique_ptr<juce::Component> createLoginComponent() = 0;
+
+protected:
+    juce::URL api_base_url;
 };
 
 #endif // INTEGRATIONS_INTEGRATION_HPP_

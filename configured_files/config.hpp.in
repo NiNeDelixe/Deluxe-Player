@@ -15,4 +15,26 @@ inline constexpr int project_version_tweak { @PROJECT_VERSION_TWEAK@ };
 inline constexpr std::string_view git_sha = "@GIT_SHA@";
 }// namespace Deluxe_Player::cmake
 
+namespace Integrations::cmake::soundcloud {
+inline constexpr std::string_view soundcloud_client_id = "@SOUNDCLOUD_CLIENT_ID@";
+inline constexpr std::string_view soundcloud_client_secret = "@SOUNDCLOUD_CLIENT_SECRET@";
+inline constexpr std::string_view soundcloud_redirect_uri = "@SOUNDCLOUD_REDIRECT_URI@";
+}
+
+namespace Integrations::cmake::vk::mobile {
+inline constexpr std::string_view vk_client_id = "@VK_MOBILE_CLIENT_ID@";
+inline constexpr std::string_view vk_client_secret = "@VK_MOBILE_CLIENT_SECRET@";
+inline constexpr std::string_view vk_user_agent = "VKAndroidApp/4.13.1-1206 (Android 4.4.3; SDK 19; armeabi; ; ru)";
+}
+
+namespace Integrations::cmake::vk::web {
+inline constexpr std::string_view vk_client_id = "@VK_WEB_CLIENT_ID@";
+inline constexpr std::string_view vk_client_secret = "@VK_WEB_CLIENT_SECRET@";
+inline constexpr std::string_view vk_user_agent = "Mozilla/5.0 (Windows NT 10.0; rv:109.0) Gecko/20100101 Firefox/115.0";
+}
+
+namespace Integrations::cmake::youtube {
+inline constexpr std::string_view api_key = "@YOUTUBE_API_KEY@";
+}
+
 #endif

@@ -121,7 +121,7 @@ void PlayerBar::updatePlayButton()
         tracks[currentTrack]->isPlaying() ? "||" : ">");
 }
 
-std::shared_ptr<Track> PlayerBar::getCurrentTrack() 
+std::shared_ptr<LocalTrack> PlayerBar::getCurrentTrack() 
 { 
     return tracks[currentTrack];
 }

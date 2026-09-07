@@ -1,12 +1,30 @@
 #include "MainComponent.hpp"
 
 MainComponent::MainComponent()
+    :
+    search(std::make_shared<YouTubeSearch>()), 
+    searchComponent(search,
+    [this](std::vector<std::shared_ptr<LocalTrack>> tracks)
+    {
+        trackList.setTracks(tracks);
+        trackList.recreateList();
+    })
 {
     setSize(1200, 750);
 
     addAndMakeVisible(trackList);
     addAndMakeVisible(playerBar);
     addAndMakeVisible(menuButton);
+    addAndMakeVisible(searchButton);
+
+
+    addAndMakeVisible(searchComponent);
+    searchComponent.setVisible(false);
+
+    searchButton.onClick = [this]
+    {
+        searchComponent.setVisible(!searchComponent.isVisible());
+    };
 
     menuButton.onClick = [this]
     {
@@ -50,6 +68,8 @@ MainComponent::MainComponent()
     };
 
     playerBar.template setTracks<LocalTrackProvider>("C:\\Users\\nanler\\Music");
+
+    
 }
 
 //==============================================================================
@@ -111,6 +131,9 @@ void MainComponent::resized()
     40,
     getWidth() - 80,
     getHeight() - 80);
+
+    searchButton.setBounds(getWidth() - 120, 20, 100, 40);
+    searchComponent.setBounds(20, 70, getWidth() - 40, getHeight() - 150);
 }
 
 //#include "moc_PlayerWindow.cpp"

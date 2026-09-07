@@ -6,6 +6,8 @@
 #include "integrations/Integration.hpp"
 
 #include "integrations/soundcloud/SoundCloudIntegration.hpp"
+#include "integrations/vk/VKIntegration.hpp"
+#include "integrations/youtube/YouTubeIntegration.hpp"
 
 class IntegrationComponent : public juce::Component
 {
@@ -16,7 +18,7 @@ public:
     void resized() override;
 
 private:
-    std::vector<std::unique_ptr<Integration>> integrations;
+    std::vector<Integration*> integrations;
 
     std::unique_ptr<juce::Component> loginComponent;
 

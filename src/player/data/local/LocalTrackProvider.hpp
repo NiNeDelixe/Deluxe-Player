@@ -1,21 +1,16 @@
 #ifndef LOCAL_LOCAL_TRACK_PROVIDER_HPP_
 #define LOCAL_LOCAL_TRACK_PROVIDER_HPP_
 
-#include "media/tracks/Track.hpp"
+#include "core/core.hpp"
 
-#include <filesystem>
-#include <memory>
-#include <vector>
+#include "data/TrackProvider.hpp"
 
-class LocalTrackProvider
+class LocalTrackProvider : public TrackProvider
 {
 public:
-    using track_ptr = std::shared_ptr<Track>;
+    std::vector<track_ptr> getTracks(const std::filesystem::path& directory) const override;
 
-public:
-    std::vector<track_ptr> getTracks(const std::filesystem::path& directory) const;
-
-    track_ptr createTrack(const std::filesystem::path& file_path) const;
+    track_ptr createTrack(const std::filesystem::path& file_path) const override;
 
 private:
     bool isAudioFile(const std::filesystem::path& file_path) const;

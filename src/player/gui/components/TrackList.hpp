@@ -17,8 +17,8 @@ public:
     void paint(juce::Graphics&) override;
     void resized() override;
 
-    void changeTrack(std::shared_ptr<Track> track);
-    void setTracks(std::vector<std::shared_ptr<Track>> tracks);
+    void changeTrack(std::shared_ptr<LocalTrack> track);
+    void setTracks(std::vector<std::shared_ptr<LocalTrack>> tracks);
 
     void recreateList();
 
@@ -27,7 +27,7 @@ public:
 
 private:
     juce::OwnedArray<TrackComponent> track_components;
-    std::vector<std::shared_ptr<Track>> tracks;
+    std::vector<std::shared_ptr<LocalTrack>> tracks;
 
     int selectedTrack = -1;
 

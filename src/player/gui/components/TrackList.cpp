@@ -58,13 +58,13 @@ void TrackList::resized()
                              getWidth() - 40, height - 4);
 }
 
-void TrackList::changeTrack(std::shared_ptr<Track> track) 
+void TrackList::changeTrack(std::shared_ptr<LocalTrack> track) 
 {
     auto iter = std::find(tracks.begin(), tracks.end(), track);
     selectTrack(std::distance(tracks.begin(), iter));
 }
 
-void TrackList::setTracks(std::vector<std::shared_ptr<Track>> tracks) 
+void TrackList::setTracks(std::vector<std::shared_ptr<LocalTrack>> tracks) 
 {
     this->tracks = tracks;
 

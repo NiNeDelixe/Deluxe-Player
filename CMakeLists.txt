@@ -42,11 +42,6 @@ Deluxe_Player_global_options()
 include(Dependencies.cmake)
 Deluxe_Player_setup_dependencies()
 
-if(WIN32 AND TARGET Qt6::Core)
-  set(__qt_internal_cmake_windows_support_files_path
-      "${QtBase_BINARY_DIR}/lib/cmake/Qt6/windows")
-endif()
-
 Deluxe_Player_local_options()
 
 # don't know if this should be set globally from here or not...

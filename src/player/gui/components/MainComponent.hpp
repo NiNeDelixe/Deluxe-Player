@@ -6,6 +6,8 @@
 #include "gui/components/TrackList.hpp"
 #include "gui/components/NavigationPanel.hpp"
 #include "gui/components/PlayerBar.hpp"
+#include "gui/components/SearchComponent.hpp"
+#include "algorithms/search/YouTubeSearch.hpp"
 
 #include "gui/components/integrations/IntegrationComponent.hpp"
 
@@ -29,14 +31,18 @@ public:
 private:
     //==============================================================================
     // Your private member variables go here...
+    std::shared_ptr<Search> search;
     TrackList trackList;
     NavigationPanel navigationPanel;
     PlayerBar playerBar;
     IntegrationComponent integrationComponent;
+    SearchComponent searchComponent;
 
     juce::TextButton menuButton{"="};
+    juce::TextButton searchButton{"Search"};
 
     bool menuOpened = false;
+
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)

@@ -38,6 +38,42 @@
             }
         },
         {
+        "name": "conf-android-common",
+        "description": "Android settings using the Android NDK toolchain",
+        "hidden": true,
+        "inherits": "conf-common",
+        "condition": {
+            "type": "equals",
+            "lhs": "${hostSystemName}",
+            "rhs": "Windows"
+        },
+        "cacheVariables": {
+            "CMAKE_TOOLCHAIN_FILE": "$env{ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake",
+            "CMAKE_ANDROID_NDK": "$env{ANDROID_NDK_HOME}",
+            "CMAKE_ANDROID_ARCH_ABI": "arm64-v8a",
+            "CMAKE_ANDROID_STL_TYPE": "c++_shared",
+            "ANDROID_PLATFORM": "android-29"
+        }
+        },
+        {
+            "name": "android-debug",
+            "displayName": "Android Debug",
+            "description": "Target Android arm64-v8a, debug build",
+            "inherits": "conf-android-common",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "android-release",
+            "displayName": "Android Release",
+            "description": "Target Android arm64-v8a, release build",
+            "inherits": "conf-android-common",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
             "name": "conf-unixlike-common",
             "description": "Unix-like OS settings for gcc and clang toolchains",
             "hidden": true,

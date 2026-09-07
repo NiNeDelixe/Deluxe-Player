@@ -5,7 +5,7 @@
 
 #include <juce_gui_extra/juce_gui_extra.h>
 
-#include "media/tracks/Track.hpp"
+#include "media/tracks/LocalTrack.hpp"
 
 class TrackComponent : public juce::Component
 {
@@ -38,7 +38,7 @@ private:
     bool selected = false;
     bool hovered = false;
 
-    std::weak_ptr<Track> track;
+    std::weak_ptr<LocalTrack> track;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TrackComponent)
 };

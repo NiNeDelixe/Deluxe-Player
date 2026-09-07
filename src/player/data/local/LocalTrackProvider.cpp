@@ -28,7 +28,7 @@ std::vector<LocalTrackProvider::track_ptr> LocalTrackProvider::getTracks(const s
 
 LocalTrackProvider::track_ptr LocalTrackProvider::createTrack(const std::filesystem::path& file_path) const
 {
-    auto track = std::make_shared<Track>(file_path);
+    auto track = std::make_shared<LocalTrack>(file_path);
 
     if (!track->isValid())
         return nullptr;

@@ -7,7 +7,7 @@
 
 #include "gui/schemas/LiquidGlass.hpp"
 
-#include "media/tracks/Track.hpp"
+#include "media/tracks/LocalTrack.hpp"
 
 class PlayerBar : public LiquidGlass
 {
@@ -24,9 +24,9 @@ public:
     template<class PROVIDER>
     void setTracks(const std::filesystem::path& directory);
     
-    const std::vector<std::shared_ptr<Track>>& getTracks() const { return tracks; }
+    const std::vector<std::shared_ptr<LocalTrack>>& getTracks() const { return tracks; }
 
-    std::shared_ptr<Track> getCurrentTrack();
+    std::shared_ptr<LocalTrack> getCurrentTrack();
 
     void playTrack(size_t index);
 
@@ -44,7 +44,7 @@ private:
     bool isExpanded = false;
     size_t currentTrack = 0;
 
-    std::vector<std::shared_ptr<Track>> tracks;
+    std::vector<std::shared_ptr<LocalTrack>> tracks;
 
     juce::TextButton expandButton{"^"};
     juce::TextButton previousButton{"|<"};

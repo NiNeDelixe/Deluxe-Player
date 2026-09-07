@@ -8,16 +8,16 @@
 
 #include <miniaudio.h>
 
-class Track
+class LocalTrack
 {
 public:
     using data_callback =
         std::function<void(ma_device*, void*, const void*, ma_uint32)>;
 
 public:
-    Track() = default;
-    Track(const std::filesystem::path& file_path);
-    ~Track();
+    LocalTrack() = default;
+    LocalTrack(const std::filesystem::path& file_path);
+    ~LocalTrack();
 
     bool init(const std::filesystem::path& file_path);
     void release();
@@ -54,7 +54,7 @@ private:
 
     std::string name;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Track)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LocalTrack)
 };
 
 #endif // TRACKS_TRACK_HPP_

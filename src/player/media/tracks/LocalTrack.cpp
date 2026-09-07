@@ -1,16 +1,16 @@
-#include "Track.hpp"
+#include "LocalTrack.hpp"
 
-Track::Track(const std::filesystem::path& file_path)
+LocalTrack::LocalTrack(const std::filesystem::path& file_path)
 {
     init(file_path);
 }
 
-Track::~Track()
+LocalTrack::~LocalTrack()
 {
     release();
 }
 
-bool Track::init(const std::filesystem::path& file_path)
+bool LocalTrack::init(const std::filesystem::path& file_path)
 {
     release();
 
@@ -49,7 +49,7 @@ bool Track::init(const std::filesystem::path& file_path)
     return true;
 }
 
-void Track::release()
+void LocalTrack::release()
 {
     m_isPlaying = false;
 
@@ -68,7 +68,7 @@ void Track::release()
     m_filePath.clear();
 }
 
-void Track::play()
+void LocalTrack::play()
 {
     if (!m_deviceInitialized || !m_decoderInitialized)
         return;
@@ -78,7 +78,7 @@ void Track::play()
     ma_device_start(&m_device);
 }
 
-void Track::pause()
+void LocalTrack::pause()
 {
     if (!m_deviceInitialized)
         return;
@@ -88,7 +88,7 @@ void Track::pause()
     ma_device_stop(&m_device);
 }
 
-void Track::stop()
+void LocalTrack::stop()
 {
     if (!m_deviceInitialized || !m_decoderInitialized)
         return;
@@ -100,22 +100,22 @@ void Track::stop()
     ma_decoder_seek_to_pcm_frame(&m_decoder, 0);
 }
 
-bool Track::isValid() const 
+bool LocalTrack::isValid() const 
 { 
     return m_decoderInitialized && m_deviceInitialized; 
 }
 
-bool Track::isPlaying() const
+bool LocalTrack::isPlaying() const
 {
     return m_isPlaying.load();
 }
 
-const std::filesystem::path& Track::getFilePath() const
+const std::filesystem::path& LocalTrack::getFilePath() const
 {
     return m_filePath;
 }
 
-void Track::dataCallback(
+void LocalTrack::dataCallback(
     ma_device* device,
     void* output,
     const void* input,
@@ -124,7 +124,7 @@ void Track::dataCallback(
     juce::ignoreUnused(input);
 
     auto* track =
-        static_cast<Track*>(device->pUserData);
+        static_cast<LocalTrack*>(device->pUserData);
 
     if (!track || !track->m_isPlaying)
     {

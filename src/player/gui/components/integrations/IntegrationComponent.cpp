@@ -3,7 +3,14 @@
 IntegrationComponent::IntegrationComponent()
 {
     integrations.push_back(
-        std::make_unique<SoundCloudIntegration>());
+        SoundCloudIntegration::getPtr());
+
+    integrations.push_back(
+        VKIntegration::getPtr());
+
+    integrations.push_back(
+        YouTubeIntegration::getPtr());
+
 
     title.setText(
         "Integrations",
@@ -21,7 +28,7 @@ IntegrationComponent::IntegrationComponent()
         auto* button = buttons.add(
             new juce::TextButton(integration->getName()));
 
-        button->onClick = [this, integration = integration.get()]
+        button->onClick = [this, integration]
         {
             openIntegration(*integration);
         };
@@ -34,6 +41,12 @@ void IntegrationComponent::openIntegration(
     Integration& integration)
 {
     loginComponent = integration.createLoginComponent();
+
+    if (!loginComponent)
+    {
+        return;
+    }
+    
 
     addAndMakeVisible(*loginComponent);
 

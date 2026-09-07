@@ -11,6 +11,9 @@ public:
     void paint(juce::Graphics& g) override;
     void resized() override;
 
+public:
+    callback<juce::String(void)> onLoginButtonClickedTockenCallback;
+
 private:
     juce::Label title;
     juce::Label description;
