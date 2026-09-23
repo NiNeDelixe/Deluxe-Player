@@ -1,5 +1,7 @@
 include(cmake/CPM.cmake)
 
+set(CPM_SOURCE_CACHE "${CMAKE_BINARY_DIR}/.cache/CPM")
+
 # Done as a function so that updates to variables like
 # CMAKE_CXX_FLAGS don't propagate out to other
 # targets
@@ -143,31 +145,18 @@ function(Deluxe_Player_setup_dependencies)
   endif()
 
   if(NOT TARGET rest_request)
-    if(EXISTS ${CMAKE_BINARY_DIR}/rest_request)
-      CPMAddPackage(
-        NAME RestRequest
-        GITHUB_REPOSITORY adamski/RestRequest
-        GIT_TAG master
-        DOWNLOAD_ONLY YES
-        SYSTEM YES
-        #PATCHES "patches/rest_request_h.patch" "patches/rest_request_cpp.patch" "patches/Source/RestRequest_h.patch"
-        SOURCE_DIR "rest_request"
-      )
-    else()
-      CPMAddPackage(
-        NAME RestRequest
-        GITHUB_REPOSITORY adamski/RestRequest
-        GIT_TAG master
-        DOWNLOAD_ONLY YES
-        SYSTEM YES
-        PATCHES "patches/rest_request_h.patch" "patches/rest_request_cpp.patch" "patches/Source/RestRequest_h.patch"
-        SOURCE_DIR "rest_request"
-      )
-    endif()
-
-    juce_add_module(
-      ${RestRequest_SOURCE_DIR}
+    CPMAddPackage(
+      NAME RestRequest
+      GITHUB_REPOSITORY adamski/RestRequest
+      GIT_TAG master
+      DOWNLOAD_ONLY YES
+      SYSTEM YES
+      PATCHES "patches/rest_request_h.patch" "patches/rest_request_cpp.patch" "patches/Source/RestRequest_h.patch"
+      #SOURCE_DIR "rest_request"
+      CUSTOM_CACHE_KEY "rest_request" # stupid juce_add_module logic
     )
+
+    juce_add_module(${RestRequest_SOURCE_DIR})
   endif()
 
   # if(NOT TARGET Qt6::Quick)
